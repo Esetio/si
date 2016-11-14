@@ -1,0 +1,15 @@
+#!/bin/bash
+
+cat /etc/passwd | cut -d: -f 1 > usuario 
+
+for i in $(cat usuario);
+do
+usuario=$i;
+gid=`grep "^$i:" /etc/passwd | cut -f 4 -d:`; 
+grupo=`grep ":"$gid":" /etc/group | cut -f 1 -d:`;
+echo $usuario":"$grupo >> usugru;
+
+done 
+sort -k 1 usugru 
+rm usugru 
+rm usuario
